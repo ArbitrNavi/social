@@ -22,8 +22,7 @@ export const userSlice = createSlice({
         user: {},
         token: localStorage.getItem("ACCESS_TOKEN"),
     },
-    reducers: {
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder.addCase(setUser.fulfilled, (state, action) => {
             state.user = action.payload;

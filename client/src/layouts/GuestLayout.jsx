@@ -9,7 +9,6 @@ const GuestLayout = () => {
         return <Navigate to={`/`}/>
     }
 
-
     return (
         <div>
             <Outlet/>

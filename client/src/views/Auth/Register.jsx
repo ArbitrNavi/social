@@ -3,6 +3,8 @@ import s from "./Auth.module.scss";
 import {Link} from "react-router-dom";
 import noAvatar from "../../assets/noImageAvatar.png"
 import axiosClient from "../../axiosClient.js";
+import {useDispatch} from "react-redux";
+import {setToken, setUser} from "../../store/features/userSlice.jsx";
 
 const Register = () => {
     const [allValues, setAllValues] = useState({
@@ -14,6 +16,7 @@ const Register = () => {
     })
     const [errors, setErrors] = useState(null)
     const [photoUrl, setPhotoUrl] = useState('');
+    const dispatcher = useDispatch()
 
     const handleChange = (e) => {
         setAllValues({...allValues, [e.target.name]: e.target.value})
@@ -39,6 +42,8 @@ const Register = () => {
 
     const onSubmit = (e) => {
         e.preventDefault()
+
+
         axiosClient
             .post("/register", values, {
                 headers: {
@@ -47,6 +52,8 @@ const Register = () => {
             })
             .then(({data}) => {
                 console.log(data)
+                dispatcher(setUser(data.user))
+                dispatcher(setToken(data.token))
             })
             .catch((err) => {
                 const response = err.response
